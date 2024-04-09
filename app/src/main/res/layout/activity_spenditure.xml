@@ -7,6 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".Spenditure">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Spendingslist">
+
+        </ListView>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/add"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="60dp"
+        android:onClick="newIntent"
+        app:backgroundTint="#CFC4F9"/>
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +44,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#CFC4F9"
+            android:background="@android:color/transparent"
             android:layout_margin="0dp"
             android:text="Favourites"
             android:textColor="@color/black"
@@ -33,7 +57,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#CFC4F9"
+            android:background="@android:color/transparent"
             android:layout_margin="0dp"
             android:text="Fuel"
             android:textColor="@color/black"
@@ -46,7 +70,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#CFC4F9"
+            android:background="@android:color/transparent"
             android:layout_margin="0dp"
             android:text="Spenditures"
             android:textColor="@color/black"
