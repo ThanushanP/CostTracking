@@ -2,7 +2,17 @@ package ca.brocku.costtracking;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 
 public class Spenditure extends AppCompatActivity {
 
@@ -12,6 +22,50 @@ public class Spenditure extends AppCompatActivity {
         setContentView(R.layout.activity_spenditure);
 
         getSupportActionBar().setTitle("Spenditures");
+        query();
 
+    }
+
+    private void query() {
+        String[] fields=new String[]{"rule","userName","date","amount","locationName"};
+        ListView listView = findViewById(R.id.Spendingslist);
+
+        ArrayList<String> entries=new ArrayList<>();
+
+        DataHelper dh=new DataHelper(this);
+        SQLiteDatabase datareader=dh.getReadableDatabase();
+
+        String selection = "userName = ?";
+        String[] selectionArgs = { "UserName" };//Change this for the name or email of the user
+
+
+        Cursor cursor=datareader.query(DataHelper.DB_TABLE,fields,selection,selectionArgs,null,null,"date");
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            entries.add(cursor.getString(4)+"\n"+cursor.getString(3)+"\n"+cursor.getString(2));
+            cursor.moveToNext();
+        }
+        if (!cursor.isClosed()) cursor.close();
+        CustomCursorAdapter adapter = new CustomCursorAdapter(this, entries);
+        listView.setAdapter(adapter);
+
+        registerForContextMenu(listView);
+        datareader.close();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.tasks,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        try {
+            return ModeSwitcher.handleMenuClicky(item,this);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
