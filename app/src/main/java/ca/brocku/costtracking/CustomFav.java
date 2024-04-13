@@ -1,8 +1,9 @@
 package ca.brocku.costtracking;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,12 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class CustomCursorAdapter extends ArrayAdapter<String> {
+public class CustomFav extends ArrayAdapter<String> {
 
     private ArrayList<String> items;
 
-    public CustomCursorAdapter(Context context, ArrayList<String> items) {
+    public CustomFav(Context context, ArrayList<String> items) {
         super(context, 0, items);
         this.items = items;
     }
@@ -34,11 +36,11 @@ public class CustomCursorAdapter extends ArrayAdapter<String> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.listview_layout, parent, false);
+                    R.layout.listview_layoutfav, parent, false);
         }
 
-        TextView textView = listItemView.findViewById(R.id.text_view);
-        Button button = listItemView.findViewById(R.id.button);
+        TextView textView = listItemView.findViewById(R.id.text_viewFav);
+        Button button = listItemView.findViewById(R.id.buttonFav);
 
         String currentItem = items.get(position);
 
@@ -48,27 +50,27 @@ public class CustomCursorAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 DataHelper dh=new DataHelper(getContext());
-                SQLiteDatabase datachanger=dh.getWritableDatabase();
+                SQLiteDatabase datareader = dh.getReadableDatabase();
 
                 String text = textView.getText().toString();
-                String[] lines = text.split("\n");
+                String selection = "rule = ?";
+                Log.d("TAG", text);
+                Pattern pattern = Pattern.compile("(\\d+)\\.");
 
-                String integerString = (lines.length > 1 ? lines[1] : "").substring(1);
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    String matchedNumber = matcher.group(1);
+                    String[] selectionArgs = { String.valueOf(matchedNumber) };
 
-                int amountVal = Integer.parseInt(integerString);
+                    datareader.delete(DataHelper.DB_TABLE_FAV, selection, selectionArgs);
+                }
 
-                ContentValues newWisdom=new ContentValues();
-                newWisdom.put("userName","UserName");//Insert username here
-                newWisdom.put("locationName",lines.length > 0 ? lines[0] : "");
-                newWisdom.put("amount",String.valueOf(amountVal));
-                newWisdom.put("dateTime",lines.length > 2 ? lines[2] : "");
 
-                datachanger.insert(DataHelper.DB_TABLE_FAV,null,newWisdom);
+                datareader.close();
 
-                datachanger.close();
-
-                Toast.makeText(getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
+                getContext().startActivity(new Intent(getContext(),favourites.class));
+                ((Activity)getContext()).finish();
             }
         });
 
