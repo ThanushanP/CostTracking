@@ -6,14 +6,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION=1;
-    public static final String DB_NAME="costTracking";
+    public static final String DB_NAME="costtracking";
     public static final String DB_TABLE="spendings";
-    public static final String DB_TABLE_FAV="Favourites";
+    public static final String DB_TABLE_FAV="favourites";
 
     private static final String CREATE_TABLE="CREATE TABLE "
-            +DB_TABLE+" (rule INTEGER PRIMARY KEY, userName TEXT, date TEXT, amount INTEGER, LocationName TEXT);";
+            +DB_TABLE+" (rule INTEGER PRIMARY KEY, userName TEXT, date TEXT, amount INTEGER, LocationName TEXT, time TEXT);";
     private static final String CREATE_TABLE_FAV="CREATE TABLE "
-            +DB_TABLE_FAV+" (rule INTEGER PRIMARY KEY, userName TEXT, date TEXT, amount INTEGER, LocationName TEXT);";
+            +DB_TABLE_FAV+" (rule INTEGER PRIMARY KEY, userName TEXT, dateTime TEXT, amount INTEGER, LocationName TEXT);";
 
     DataHelper(Context context) {
         super(context,DB_NAME,null,DATABASE_VERSION);

@@ -2,12 +2,15 @@ package ca.brocku.costtracking;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -27,7 +30,7 @@ public class Spenditure extends AppCompatActivity {
     }
 
     private void query() {
-        String[] fields=new String[]{"rule","userName","date","amount","locationName"};
+        String[] fields=new String[]{"rule","userName","date","amount","LocationName","time"};
         ListView listView = findViewById(R.id.Spendingslist);
 
         ArrayList<String> entries=new ArrayList<>();
@@ -39,12 +42,14 @@ public class Spenditure extends AppCompatActivity {
         String[] selectionArgs = { "UserName" };//Change this for the name or email of the user
 
 
-        Cursor cursor=datareader.query(DataHelper.DB_TABLE,fields,selection,selectionArgs,null,null,"date");
+        Cursor cursor=datareader.query(DataHelper.DB_TABLE,fields,selection,selectionArgs,null,null,"date DESC, time DESC");
         cursor.moveToFirst();
+
         while (!cursor.isAfterLast()) {
-            entries.add(cursor.getString(4)+"\n"+cursor.getString(3)+"\n"+cursor.getString(2));
+            entries.add(cursor.getString(4)+"\n$"+cursor.getString(3)+"\n"+cursor.getString(2)+" | "+cursor.getString(5));
             cursor.moveToNext();
         }
+
         if (!cursor.isClosed()) cursor.close();
         CustomCursorAdapter adapter = new CustomCursorAdapter(this, entries);
         listView.setAdapter(adapter);
@@ -67,5 +72,21 @@ public class Spenditure extends AppCompatActivity {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void newIntent(View view) {
+        startActivity(new Intent(this, inputSpend.class));
+    }
+
+    public void toFav(View view) {
+        startActivity(new Intent(this, favourites.class));
+    }
+
+    public void toFuel(View view) {
+        startActivity(new Intent(this, gasPrices.class));
+    }
+
+    public void toSpend(View view) {
+        startActivity(new Intent(this, Spenditure.class));
     }
 }

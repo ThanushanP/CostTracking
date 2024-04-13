@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,16 +53,18 @@ public class CustomCursorAdapter extends ArrayAdapter<String> {
                 String text = textView.getText().toString();
                 String[] lines = text.split("\n");
 
-
                 ContentValues newWisdom=new ContentValues();
-                newWisdom.put("userName","InsertUserNameHere");//Insert username here
+                newWisdom.put("userName","userName");//Insert username here
                 newWisdom.put("locationName",lines.length > 0 ? lines[0] : "");
                 newWisdom.put("amount",lines.length > 1 ? lines[1] : "");
-                newWisdom.put("date",lines.length > 2 ? lines[2] : "");
+                newWisdom.put("dateTime",lines.length > 2 ? lines[2] : "");
 
                 datachanger.insert(DataHelper.DB_TABLE_FAV,null,newWisdom);
 
                 datachanger.close();
+
+                Toast.makeText(getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+
             }
         });
 

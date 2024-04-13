@@ -53,6 +53,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:elevation="0dp"
+            android:onClick="toFav"
             />
         <Button
             android:layout_width="wrap_content"
@@ -66,6 +67,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:elevation="0dp"
+            android:onClick="toFuel"
             />
         <Button
             android:layout_width="wrap_content"
@@ -79,6 +81,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:elevation="0dp"
+            android:onClick="toSpend"
             />
     </GridLayout>
 
