@@ -95,15 +95,15 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
     }
 
     public void newIntent(View view) {
-        startActivity(new Intent(this, inputSpend.class));
+        startActivity(new Intent(this, InputSpend.class));
     }
 
     public void toFav(View view) {
-        startActivity(new Intent(this, favourites.class));
+        startActivity(new Intent(this, Favourites.class));
     }
 
     public void toFuel(View view) {
-        startActivity(new Intent(this, gasPrices.class));
+        startActivity(new Intent(this, GasPrices.class));
     }
 
     public void toSpend(View view) {

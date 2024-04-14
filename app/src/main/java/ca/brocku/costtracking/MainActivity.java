@@ -46,10 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
@@ -58,17 +55,15 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Intent intent = new Intent(MainActivity.this, gasPrices.class);
+            Intent intent = new Intent(MainActivity.this, GasPrices.class);
 
-            // Optional: Pass user account information to the next activity
             intent.putExtra("userAccount", account);
 
             startActivity(intent);
 
-            // Finish MainActivity so the user can't go back to it by pressing the back button
             finish();
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
+
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
             // TODO: Handle failure to sign in properly
         }

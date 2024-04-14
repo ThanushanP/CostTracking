@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,7 +15,7 @@ import android.widget.ListView;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class favourites extends AppCompatActivity {
+public class Favourites extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +68,11 @@ public class favourites extends AppCompatActivity {
         }
     }
     public void toFav(View view) {
-        startActivity(new Intent(this, favourites.class));
+        startActivity(new Intent(this, Favourites.class));
     }
 
     public void toFuel(View view) {
-        startActivity(new Intent(this, gasPrices.class));
+        startActivity(new Intent(this, GasPrices.class));
     }
 
     public void toSpend(View view) {

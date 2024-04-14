@@ -69,7 +69,7 @@ public class CustomFav extends ArrayAdapter<String> {
                 datareader.close();
 
                 Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
-                getContext().startActivity(new Intent(getContext(),favourites.class));
+                getContext().startActivity(new Intent(getContext(),Favourites.class));
                 ((Activity)getContext()).finish();
             }
         });
