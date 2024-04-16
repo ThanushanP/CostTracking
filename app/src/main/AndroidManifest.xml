@@ -23,6 +23,7 @@
             android:exported="false" />
         <activity
             android:name=".GasPrices"
+            android:exported="true"
             />
         <activity
             android:name=".MainActivity"

@@ -5,6 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GasPrices">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/zipCodeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter ZIP Code"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/fetchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/zipCodeEditText"
+            android:layout_centerHorizontal="true"
+            android:text="Fetch Gas Prices"
+            android:onClick="onFetchButtonClick" /> <!-- Set the onClick attribute -->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/resultTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"/>
+        </ScrollView>
+
+    </LinearLayout>
+
+
 <!-- Navbar Below-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
