@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestProfile()
+                .requestIdToken(getString(R.string.server_client_id))
                 .build();
 
         // Build a GoogleSignInClient with the options specified by gso.
@@ -55,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            String personName = account.getDisplayName();  // Get the user's display name
+            String personGivenName = account.getGivenName();  // Get the user's first name
+            String personFamilyName = account.getFamilyName();  // Get the user's last name
+            String personEmail = account.getEmail();  // Get the user's email address
+            String personId = account.getId();  // Get the user's ID
+
+            // Log the name or use it as needed
+            Log.i("Google Sign In", "User name: " + personName);
+
             Intent intent = new Intent(MainActivity.this, GasPrices.class);
 
             intent.putExtra("userAccount", account);
