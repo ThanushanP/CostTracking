@@ -42,7 +42,7 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
         String[] fields=new String[]{"rule","userName","date","amount","LocationName","time"};
         ListView listView = findViewById(R.id.Spendingslist);
         TextView textView = findViewById(R.id.totalcost);
-        int total = 0;
+        double total = 0;
         String selection;
         String[] selectionArgs;
 
@@ -63,7 +63,7 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            total+= Integer.parseInt(cursor.getString(3));
+            total+= Double.parseDouble(cursor.getString(3));
             entries.add(cursor.getString(4)+"\n$"+cursor.getString(3)+"\n"+cursor.getString(2)+" | "+cursor.getString(5));
             cursor.moveToNext();
         }

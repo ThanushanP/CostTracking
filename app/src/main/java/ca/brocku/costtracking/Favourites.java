@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class Favourites extends AppCompatActivity {
     private void query() {
         String[] fields=new String[]{"rule","userName","dateTime","amount","LocationName"};
         ListView listView = findViewById(R.id.Favlist);
+        TextView textView = findViewById(R.id.totalFav);
+        double total = 0;
 
         ArrayList<String> entries=new ArrayList<>();
 
@@ -42,10 +45,12 @@ public class Favourites extends AppCompatActivity {
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
+            total+= Double.parseDouble(cursor.getString(3));
             entries.add(cursor.getString(0)+". "+cursor.getString(4)+"\n$"+cursor.getString(3)+"\n"+cursor.getString(2));
             cursor.moveToNext();
         }
         if (!cursor.isClosed()) cursor.close();
+        textView.setText("Total: $"+total);
         CustomFav adapter = new CustomFav(this, entries);
         listView.setAdapter(adapter);
 

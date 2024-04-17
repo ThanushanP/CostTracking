@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Favourites">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/totalFav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CFC4F9"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="Total: $"
+        android:textSize="25dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,6 +32,8 @@
 
         </ListView>
     </LinearLayout>
+    </LinearLayout>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

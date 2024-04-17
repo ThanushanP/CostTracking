@@ -11,9 +11,9 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String DB_TABLE_FAV="favourites";
 
     private static final String CREATE_TABLE="CREATE TABLE "
-            +DB_TABLE+" (rule INTEGER PRIMARY KEY, userName TEXT, date TEXT, amount INTEGER, LocationName TEXT, time TEXT);";
+            +DB_TABLE+" (rule INTEGER PRIMARY KEY, userName TEXT, date TEXT, amount REAL, LocationName TEXT, time TEXT);";
     private static final String CREATE_TABLE_FAV="CREATE TABLE "
-            +DB_TABLE_FAV+" (rule INTEGER PRIMARY KEY, userName TEXT, dateTime TEXT, amount INTEGER, LocationName TEXT);";
+            +DB_TABLE_FAV+" (rule INTEGER PRIMARY KEY, userName TEXT, dateTime TEXT, amount REAL, LocationName TEXT);";
 
     DataHelper(Context context) {
         super(context,DB_NAME,null,DATABASE_VERSION);

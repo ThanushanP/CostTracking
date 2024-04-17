@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -90,6 +91,7 @@ public class InputSpend extends AppCompatActivity implements DatePickerDialog.On
         ContentValues newWisdom=new ContentValues();
         newWisdom.put("userName","UserName");//repalce with username
         newWisdom.put("locationName",nameWidget.getText().toString());
+        Log.d("TAG",amount);
         newWisdom.put("amount",amount);
         newWisdom.put("date",selectedDateText);
         newWisdom.put("time",selectedTimeText);

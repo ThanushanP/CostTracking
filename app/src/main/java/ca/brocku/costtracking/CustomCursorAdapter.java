@@ -53,9 +53,9 @@ public class CustomCursorAdapter extends ArrayAdapter<String> {
                 String text = textView.getText().toString();
                 String[] lines = text.split("\n");
 
-                String integerString = (lines.length > 1 ? lines[1] : "").substring(1);
+                String DoubleString = (lines.length > 1 ? lines[1] : "").substring(1);
 
-                int amountVal = Integer.parseInt(integerString);
+                Double amountVal = Double.parseDouble(DoubleString);
 
                 ContentValues newWisdom=new ContentValues();
                 newWisdom.put("userName","UserName");//Insert username here
