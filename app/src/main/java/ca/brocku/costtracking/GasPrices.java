@@ -95,7 +95,7 @@ public class GasPrices extends AppCompatActivity {
     }
 
     private String getGasPrices(String zipCode) {
-        String baseUrl = "http://192.168.0.108:5000//gas_prices?zip_code=";
+        String baseUrl = "https://adrian.tpgc.me:443//gas_prices?zip_code=";
         String apiUrl = baseUrl + zipCode;
         try {
             URL url = new URL(apiUrl);
