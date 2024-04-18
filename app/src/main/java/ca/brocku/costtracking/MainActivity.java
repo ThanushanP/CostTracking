@@ -1,15 +1,19 @@
 package ca.brocku.costtracking;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
@@ -77,7 +81,40 @@ public class MainActivity extends AppCompatActivity {
         } catch (ApiException e) {
 
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
-            // TODO: Handle failure to sign in properly
+
+            handleError(e.getStatusCode());
         }
     }
+
+    private void handleError(int errorCode) {
+        if (errorCode == GoogleSignInStatusCodes.NETWORK_ERROR) {
+            showRetryDialog();
+            return;
+        }
+
+        String message;
+        switch (errorCode) {
+            case GoogleSignInStatusCodes.INVALID_ACCOUNT:
+                message = "Invalid account. Please check your account settings.";
+                break;
+            case GoogleSignInStatusCodes.SIGN_IN_REQUIRED:
+                message = "Sign in required. Please sign in to continue.";
+                break;
+            default:
+                message = "An error occurred. Please try signing in again.";
+                break;
+        }
+
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void showRetryDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Network Error")
+                .setMessage("Unable to connect. Would you like to retry?")
+                .setPositiveButton("Retry", (dialog, which) -> signIn())
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
 }
