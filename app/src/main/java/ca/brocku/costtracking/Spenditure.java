@@ -38,13 +38,11 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
         Intent intent = getIntent();
         if(intent != null) {
             String user = intent.getStringExtra("accEmail");
-          //  Log.d("This is the thing: ", user);
             if(user != null) {
                 this.user= user;
             }
             else{
                 this.user = null;
-                Log.d("This is the thing: ", "this is test!");
             }
         }
 
@@ -53,7 +51,6 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
     }
 
     private void query(String date, boolean useDate) {
-
         String[] fields=new String[]{"rule","userName","date","amount","LocationName","time"};
         ListView listView = findViewById(R.id.Spendingslist);
         TextView textView = findViewById(R.id.totalcost);

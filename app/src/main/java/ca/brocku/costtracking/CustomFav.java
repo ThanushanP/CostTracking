@@ -24,10 +24,12 @@ import java.util.regex.Pattern;
 public class CustomFav extends ArrayAdapter<String> {
 
     private ArrayList<String> items;
+    private String user;
 
-    public CustomFav(Context context, ArrayList<String> items) {
+    public CustomFav(Context context, ArrayList<String> items, String user) {
         super(context, 0, items);
         this.items = items;
+        this.user = user;
     }
 
     @NonNull
@@ -69,7 +71,10 @@ public class CustomFav extends ArrayAdapter<String> {
                 datareader.close();
 
                 Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
-                getContext().startActivity(new Intent(getContext(),Favourites.class));
+                Intent intent = new Intent(getContext(), Favourites.class);
+                intent.putExtra("accEmail",user);
+
+                getContext().startActivity(intent);
                 ((Activity)getContext()).finish();
             }
         });

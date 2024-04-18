@@ -63,7 +63,7 @@ public class Favourites extends AppCompatActivity {
         }
         if (!cursor.isClosed()) cursor.close();
         textView.setText("Total: $"+total);
-        CustomFav adapter = new CustomFav(this, entries);
+        CustomFav adapter = new CustomFav(this, entries, user);
         listView.setAdapter(adapter);
 
         registerForContextMenu(listView);
