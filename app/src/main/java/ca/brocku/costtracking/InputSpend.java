@@ -112,6 +112,11 @@ public class InputSpend extends AppCompatActivity implements DatePickerDialog.On
         datachanger.insert(DataHelper.DB_TABLE,null,newWisdom);
 
         datachanger.close();
-        startActivity(new Intent(this,Spenditure.class));
+        //startActivity(new Intent(this,Spenditure.class));
+
+        Intent intent = new Intent(this, Spenditure.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 }

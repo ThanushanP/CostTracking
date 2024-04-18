@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Log the name or use it as needed
             Log.i("Google Sign In", "User name: " + personName);
+            Log.i("Google Sign In", "Given Name: " + personGivenName);
+            Log.i("Google Sign In", "Family name: " + personFamilyName);
 
             Intent intent = new Intent(MainActivity.this, GasPrices.class);
 

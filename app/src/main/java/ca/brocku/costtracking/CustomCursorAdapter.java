@@ -60,7 +60,7 @@ public class CustomCursorAdapter extends ArrayAdapter<String> {
                 Double amountVal = Double.parseDouble(DoubleString);
 
                 ContentValues newWisdom=new ContentValues();
-                newWisdom.put("userName","UserName");//Insert username here
+                newWisdom.put("userName", user);//Insert username here
                 newWisdom.put("locationName",lines.length > 0 ? lines[0] : "");
                 newWisdom.put("amount",String.valueOf(amountVal));
                 newWisdom.put("dateTime",lines.length > 2 ? lines[2] : "");
