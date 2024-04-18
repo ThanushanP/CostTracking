@@ -66,11 +66,7 @@ public class Favourites extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        try {
-            return ModeSwitcher.handleMenuClicky(item,this);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return ModeSwitcher.handleMenuClicky(item,this);
     }
     public void toFav(View view) {
         startActivity(new Intent(this, Favourites.class));

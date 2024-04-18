@@ -87,12 +87,9 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        try {
-            return ModeSwitcher.handleMenuClicky(item,this);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return ModeSwitcher.handleMenuClicky(item, this) || super.onOptionsItemSelected(item);
     }
+
 
     public void newIntent(View view) {
         startActivity(new Intent(this, InputSpend.class));
