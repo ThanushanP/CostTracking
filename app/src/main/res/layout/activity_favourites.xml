@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:layout_margin="0dp"
-                android:text="Spenditures"
+                android:text="Expenditure"
                 android:textColor="@color/black"
                 android:layout_row="0"
                 android:layout_column="2"

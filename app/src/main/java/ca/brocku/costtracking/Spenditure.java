@@ -33,7 +33,7 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spenditure);
 
-        getSupportActionBar().setTitle("Spenditures");
+        getSupportActionBar().setTitle("Expenditure");
 
         Intent intent = getIntent();
         if(intent != null) {
