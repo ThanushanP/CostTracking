@@ -106,7 +106,13 @@ public class GasPrices extends AppCompatActivity {
         }
     }
 
+    /**
+     * Asynchronously fetches gas prices from the API based on the provided ZIP code.
+     * @param zipCode The ZIP code for which gas prices are to be fetched.
+     * @return A JSON string containing gas prices data, or null if fetching fails.
+     */
     private String getGasPrices(String zipCode) {
+        // Construct the API URL using the provided ZIP code
         String baseUrl = "https://adrian.tpgc.me:443//gas_prices?zip_code=";
         String apiUrl = baseUrl + zipCode;
         try {
