@@ -31,7 +31,7 @@ public class GasPrices extends AppCompatActivity {
     private Button fetch;
     private EditText LocationInput;
 
-
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,17 @@ public class GasPrices extends AppCompatActivity {
         fetch = findViewById(R.id.fetchButton);
         LocationInput = findViewById(R.id.zipCodeEditText);
         getSupportActionBar().setTitle("Gas Prices");
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            String user = intent.getStringExtra("accEmail");
+            if(user != null) {
+                this.user= user;
+            }
+            else{
+                this.user = null;
+            }
+        }
 
         fetch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,14 +149,23 @@ public class GasPrices extends AppCompatActivity {
 
 
     public void toFav(View view) {
-        startActivity(new Intent(this, Favourites.class));
+        Intent intent = new Intent(this, Favourites.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 
     public void toFuel(View view) {
-        startActivity(new Intent(this, GasPrices.class));
+        Intent intent = new Intent(this, GasPrices.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 
     public void toSpend(View view) {
-        startActivity(new Intent(this, Spenditure.class));
+        Intent intent = new Intent(this, Spenditure.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 }

@@ -17,13 +17,25 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Favourites extends AppCompatActivity {
-
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites);
 
         getSupportActionBar().setTitle("Favourites");
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            String user = intent.getStringExtra("accEmail");
+            if(user != null) {
+                this.user= user;
+            }
+            else{
+                this.user = null;
+            }
+        }
+
         query();
     }
 
@@ -39,7 +51,7 @@ public class Favourites extends AppCompatActivity {
         SQLiteDatabase datareader=dh.getReadableDatabase();
 
         String selection = "userName = ?";
-        String[] selectionArgs = { "UserName" };//Change this for the name or email of the user
+        String[] selectionArgs = { user };//Change this for the name or email of the user
 
         Cursor cursor=datareader.query(DataHelper.DB_TABLE_FAV,fields,selection,selectionArgs,null,null,null);
         cursor.moveToFirst();
@@ -69,14 +81,23 @@ public class Favourites extends AppCompatActivity {
         return ModeSwitcher.handleMenuClicky(item,this);
     }
     public void toFav(View view) {
-        startActivity(new Intent(this, Favourites.class));
+        Intent intent = new Intent(this, Favourites.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 
     public void toFuel(View view) {
-        startActivity(new Intent(this, GasPrices.class));
+        Intent intent = new Intent(this, GasPrices.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 
     public void toSpend(View view) {
-        startActivity(new Intent(this, Spenditure.class));
+        Intent intent = new Intent(this, Spenditure.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 }

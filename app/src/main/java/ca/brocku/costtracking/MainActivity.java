@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, GasPrices.class);
 
             intent.putExtra("userAccount", account);
+            intent.putExtra("accEmail",personEmail);
 
             startActivity(intent);
 

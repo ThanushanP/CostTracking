@@ -27,13 +27,25 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Spenditure extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
-
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spenditure);
 
         getSupportActionBar().setTitle("Spenditures");
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            String user = intent.getStringExtra("accEmail");
+            if(user != null) {
+                this.user= user;
+            }
+            else{
+                this.user = null;
+            }
+        }
+
         query("L", false);
 
     }
@@ -52,11 +64,11 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
         SQLiteDatabase datareader=dh.getReadableDatabase();
         if (!useDate){
             selection = "userName = ?";
-            selectionArgs = new String[]{"UserName"};//Change this for the name or email of the user
+            selectionArgs = new String[]{user};//Change this for the name or email of the user
         }
         else{
             selection = "userName = ? AND date = ?";
-            selectionArgs = new String[]{"UserName", date};//Change this for the name or email of the user
+            selectionArgs = new String[]{user, date};//Change this for the name or email of the user
         }
         Cursor cursor=datareader.query(DataHelper.DB_TABLE,fields,selection,selectionArgs,null,null,"date DESC, time DESC");
 
@@ -71,7 +83,7 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
         if (!cursor.isClosed()) cursor.close();
 
         textView.setText("Total: $"+total);
-        CustomCursorAdapter adapter = new CustomCursorAdapter(this, entries);
+        CustomCursorAdapter adapter = new CustomCursorAdapter(this, entries, this.user);
         listView.setAdapter(adapter);
 
         registerForContextMenu(listView);
@@ -92,19 +104,31 @@ public class Spenditure extends AppCompatActivity implements DatePickerDialog.On
 
 
     public void newIntent(View view) {
-        startActivity(new Intent(this, InputSpend.class));
+        Intent intent = new Intent(this, InputSpend.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 
     public void toFav(View view) {
-        startActivity(new Intent(this, Favourites.class));
+        Intent intent = new Intent(this, Favourites.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 
     public void toFuel(View view) {
-        startActivity(new Intent(this, GasPrices.class));
+        Intent intent = new Intent(this, GasPrices.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 
     public void toSpend(View view) {
-        startActivity(new Intent(this, Spenditure.class));
+        Intent intent = new Intent(this, Spenditure.class);
+        intent.putExtra("accEmail",user);
+
+        startActivity(intent);
     }
 
     public void changeDate(View view) {

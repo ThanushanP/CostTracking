@@ -25,12 +25,24 @@ public class InputSpend extends AppCompatActivity implements DatePickerDialog.On
     private Date selectedTime;
     private String selectedDateText;
     private String selectedTimeText;
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_spend);
 
         getSupportActionBar().setTitle("Input Spending");
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            String user = intent.getStringExtra("accEmail");
+            if(user != null) {
+                this.user= user;
+            }
+            else{
+                this.user = null;
+            }
+        }
     }
 
     public void selectDate(View view) {
@@ -89,7 +101,7 @@ public class InputSpend extends AppCompatActivity implements DatePickerDialog.On
         }
 
         ContentValues newWisdom=new ContentValues();
-        newWisdom.put("userName","UserName");//repalce with username
+        newWisdom.put("userName",user);//repalce with username
         newWisdom.put("locationName",nameWidget.getText().toString());
         Log.d("TAG",amount);
         newWisdom.put("amount",amount);

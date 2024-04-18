@@ -22,10 +22,12 @@ import java.util.ArrayList;
 public class CustomCursorAdapter extends ArrayAdapter<String> {
 
     private ArrayList<String> items;
+    private String user;
 
-    public CustomCursorAdapter(Context context, ArrayList<String> items) {
+    public CustomCursorAdapter(Context context, ArrayList<String> items, String user) {
         super(context, 0, items);
         this.items = items;
+        this.user = user;
     }
 
     @NonNull
