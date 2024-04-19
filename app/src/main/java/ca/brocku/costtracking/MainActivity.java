@@ -18,24 +18,33 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+/**
+ * Main Activity that handles user authentication using Google Sign-In.
+ *
+ * @author Thanushan, Adrian, and Hamza
+ */
 public class MainActivity extends AppCompatActivity {
-    GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
 
+    /**
+     * Initializes the activity, Google Sign-In options and the sign-in button.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     * previously being shut down then this Bundle contains the data it most
+     * recently supplied. Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestProfile()
                 .requestIdToken(getString(R.string.server_client_id))
                 .build();
 
-        // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         SignInButton signInButton = findViewById(R.id.sign_in_button);
@@ -43,11 +52,25 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(view -> signIn());
     }
 
+    /**
+     * Initiates the Google Sign-In process.
+     */
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    /**
+     * Called when an activity you launched exits, giving you the requestCode
+     * you started it with, the resultCode it returned, and any additional
+     * data from it.
+     *
+     * @param requestCode The integer request code originally supplied to
+     * startActivityForResult(), allowing you to identify who this result came from.
+     * @param resultCode The integer result code returned by the child activity
+     * through its setResult().
+     * @param data An Intent, which can return result data to the caller.
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -58,37 +81,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles the result of the Google Sign-In process.
+     *
+     * @param completedTask Task containing the Google Sign-In account result.
+     */
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            String personName = account.getDisplayName();  // Get the user's display name
-            String personGivenName = account.getGivenName();  // Get the user's first name
-            String personFamilyName = account.getFamilyName();  // Get the user's last name
-            String personEmail = account.getEmail();  // Get the user's email address
-            String personId = account.getId();  // Get the user's ID
-
-            // Log the name or use it as needed
-            Log.i("Google Sign In", "User name: " + personName);
-            Log.i("Google Sign In", "Given Name: " + personGivenName);
-            Log.i("Google Sign In", "Family name: " + personFamilyName);
-
             Intent intent = new Intent(MainActivity.this, GasPrices.class);
-
             intent.putExtra("userAccount", account);
-            intent.putExtra("accEmail",personEmail);
+            intent.putExtra("accEmail", account.getEmail());
 
             startActivity(intent);
-
             finish();
         } catch (ApiException e) {
-
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
-
             handleError(e.getStatusCode());
         }
     }
 
+    /**
+     * Handles errors that may occur during the sign-in process.
+     *
+     * @param errorCode An integer error code that represents different errors
+     * that may occur.
+     */
     private void handleError(int errorCode) {
         if (errorCode == GoogleSignInStatusCodes.NETWORK_ERROR) {
             showRetryDialog();
@@ -111,6 +130,10 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Shows a dialog asking the user if they would like to retry the sign-in process
+     * after a network error.
+     */
     private void showRetryDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Network Error")
@@ -119,5 +142,4 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
                 .show();
     }
-
 }

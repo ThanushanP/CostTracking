@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "871267922252",
+    "project_id": "costtracker-3p97",
+    "storage_bucket": "costtracker-3p97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871267922252:android:a4813650f1af4446f6dfe9",
+        "android_client_info": {
+          "package_name": "ca.brocku.costtracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871267922252-kkm24tcdqs5291bink2dcb7564lb4h1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD87MTfNNhYnx1EtlNEjoqH7tcn4U2rFrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871267922252-kkm24tcdqs5291bink2dcb7564lb4h1j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
